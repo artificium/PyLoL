@@ -9,8 +9,8 @@ Take a look at example.py for some well-documented example usages.
 ```python
 from RiotAPI import pylol
 
-# Create our client for the North American server with rate-limiting enabled and a rate limit of 500 queries per 
-# ten minutes
+# Create our client for the North American server with rate-limiting enabled and a rate limit
+# of 500 queries per ten minutes
 riot = pylol.RiotClient("YOUR_API_KEY_HERE", realm = 'na', limit = True, max_per_ten_min = 500)
 
 # Let's assume we have a list of summoner IDs. Let's also assume that 
