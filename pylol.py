@@ -603,7 +603,7 @@ class RiotClient(object):
 	def __init__(self, api_key, realm = 'na', limit=True, max_per_ten_min=500, include_timestamp=True, summonerAPIVersion = "1.3", 
 		championAPIVersion = "1.1", gameAPIVersion = "1.3", leagueAPIVersion = "2.3", statsAPIVersion = "1.2", teamAPIVersion = "2.2"):
 		self.api_key = api_key
-		self.realm = realm
+		self.realm = realm.lower()
 		self._limit = limit 
 		self._max_per_ten_min = max_per_ten_min
 		self.include_timestamp = include_timestamp

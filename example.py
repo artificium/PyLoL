@@ -60,11 +60,11 @@ for realm in clients:
 	print "Summoner IDs: ", ids
 
 	mastery_listings = riot.get_mastery_pages(ids)
-	rune_listings = riot.get_rune_pages(ids)
 
 	print mastery_listings
-	print rune_listings
 
+	# The todict() method from utils.py will convert an arbitrary Python class into
+	# a standard dict for storing in MongoDB. You don't need to use PyLoL to use it either
 	print "Inserting %d mastery pages..." % len(mastery_listings)
 	db.mastery_pages.insert([todict(x) for x in mastery_listings])
 
