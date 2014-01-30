@@ -659,21 +659,53 @@ class RiotClient(object):
 		return output
 
 	def get_mastery_pages(self, id_list):
+		''' Get the mastery page listings (list of pages) for each summoner in the ID list
+		
+		Args:
+			id_list [int] : A list of summoner IDs
+
+		Returns:
+			[MasteryListing] - One mastery listing per summoner ID
+		'''
 		resp = self.makeapicallonlist("/summoner/{}/masteries", id_list, self.summonerAPIVersion)
 
 		return self.list_result(resp, MasteryListing)
 
 	def get_rune_pages(self, id_list):
+		''' Get the run page listings (list of pages) for each summoner in the ID list
+		
+		Args:
+			id_list [int] : A list of summoner IDs
+
+		Returns:
+			[RuneListing] - One run listing per summoner ID
+		'''
 		resp = self.makeapicallonlist("/summoner/{}/runes", id_list, self.summonerAPIVersion)
 
 		return self.list_result(resp, RuneListing)
 
 	def get_summoners_by_ids(self, id_list):
+		''' Get the summoner metadata for each summoner in the ID list
+		
+		Args:
+			id_list [int] : A list of summoner IDs
+
+		Returns:
+			[Summoner] - One metadata object per summoner ID
+		'''
 		resp = self.makeapicallonlist("/summoner/{}", id_list, self.summonerAPIVersion)
 
 		return self.list_result(resp, Summoner)
 
 	def get_summoner_names(self, id_list):
+		''' Get the summoner name for each summoner in the ID list
+		
+		Args:
+			id_list [int] : A list of summoner IDs
+
+		Returns:
+			Map[int, String] - Summoner ID -> Summoner Name
+		'''
 		resp = self.makeapicallonlist("/summoner/{}/name", id_list, self.summonerAPIVersion)
 
 		output = {}
@@ -683,36 +715,89 @@ class RiotClient(object):
 		return output
 
 	def get_summoners_by_name(self, names):
+		''' Get the summoner metadata for each summoner in the ID list
+		
+		Args:
+			names [string] : A list of summoner names
+
+		Returns:
+			[Summoner] - One metadata object per summoner name
+		'''
 		resp = self.makeapicallonlist("/summoner/by-name/{}", names, self.summonerAPIVersion)
 
 		return self.list_result(resp, Summoner)
 
 	def get_champions(self):
+		''' Get the champion metadata for each champion
+
+		Returns:
+			ChampionList 
+		'''
 		resp = self.makeapicall("/champion", self.championAPIVersion)
 
 		return ChampionList(json=resp)
 
 	def get_recent_games(self, summonerId):
+		''' Get the recent games for a summoner
+
+		Args:
+			summonerId (int) : Summoner's ID
+
+		Returns:
+			RecentGameList 
+		'''
 		resp = self.makeapicall("/game/by-summoner/%d/recent" % summonerId, self.gameAPIVersion)
 
 		return RecentGameList(json=resp)
 
 	def get_league(self, summonerId):
+		''' Get the leagues for a summoner
+
+		Args:
+			summonerId (int) : Summoner's ID
+
+		Returns:
+			[League] 
+		'''
 		resp = self.makeapicall("/league/by-summoner/%d" % summonerId, self.leagueAPIVersion)
 
 		return [League(json=l) for l in resp]
 
 	def get_stats_summary(self, summonerId):
+		''' Get the game stats for a summoner
+
+		Args:
+			summonerId (int) : Summoner's ID
+
+		Returns:
+			PlayerStatsSummaryList 
+		'''
 		resp = self.makeapicall("/stats/by-summoner/%d/summary" % summonerId, self.statsAPIVersion)
 
 		return PlayerStatsSummaryList(json=resp) 
 
 	def get_ranked_stats(self, summonerId):
+		''' Get the ranked stats for a summoner
+
+		Args:
+			summonerId (int) : Summoner's ID
+
+		Returns:
+			RankedStats 
+		'''
 		resp = self.makeapicall("/stats/by-summoner/%d/ranked" % summonerId, self.statsAPIVersion)
 
 		return RankedStats(json=resp)
 
 	def get_team(self, summonerId):
+		''' Get the team data for a summoner
+
+		Args:
+			summonerId (int) : Summoner's ID
+
+		Returns:
+			[Team] 
+		'''
 		resp = self.makeapicall('/team/by-summoner/%d' % summonerId, self.teamAPIVersion)
 
 		return [Team(json=t) for t in resp]
