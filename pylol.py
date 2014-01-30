@@ -628,8 +628,14 @@ class RiotClient(object):
 		return output
 
 	def sleep(self):
-		target_delay_time = int(10 * 60 / self._max_per_ten_min)
-		remaining_delay_time = target_delay_time - int(time.time() - self._lastCallTime)
+		target_delay_time = 10.0 * 60.0 / float(self._max_per_ten_min)
+		remaining_delay_time = target_delay_time - round(time.time() - self._lastCallTime)
+		if remaining_delay_time < 0.0:
+			remaining_delay_time = 0.0
+			
+		print "Target delay: %f" % target_delay_time
+		print "Remaining delay: %f" % remaining_delay_time
+
 		time.sleep(remaining_delay_time)
 		self._lastCallTime = time.time()
 
